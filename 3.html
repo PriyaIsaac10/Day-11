@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color:pink;
+    font-family: sans-sarif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin:0;
+}
+.container{
+    background-color: #fff;
+    border-radius: Spx;
+    box-shadow: 10px 20px 25px rgba(0,0,0,.3);
+    overflow: hidden;
+    max-width: 100%;
+    width: 400px;
+}
+.header{
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #f7f7f7;
+    padding: 20px 40px;
+}
+.header h2{
+    margin: 0;
+    text-align: center;
+}
+.form{
+    padding: 30px 40px;
+
+}
+.form-control{
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    position: relative;
+}
+.form-control label{
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.form-control input{
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;
+    display:block;
+    font-size: 14px;
+    padding: 10px 40px;
+    width: 100%;
+}
+.form-control input:focus{
+    outline: none;
+    border-color: #777;
+}
+.form-control.success input {
+    border-color:rgb(11, 247, 11);
+}
+.form-control.error input {
+    border-color: red;
+}
+.form-control small{
+    color: red;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    visibility: hidden; 
+}
+.form-control.error{
+    visibility: visibile;
+}
+.form button{
+    background-color: blue;
+    border:none;
+    color: #fff;
+    display: block;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 200px;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Creat Acccount</h2>
+        </div>
+       <form class="form" Id="form">
+           <div class="form-control">
+               <label>Username</label>
+               <input type="text" placeholder="Enter Username" id="Username">
+               <small>Error Message</small>
+           </div>
+           <div class="form-control">
+               <label>Email</label>
+               <input type="email" placeholder="Email@gmail.com" id="email">
+               <small>Error Message</small>
+           </div>
+           <div class="form-control">
+            <label>Password</label>
+            <input type="password" placeholder="password" id="Password">
+            <small>Error Message</small>
+        </div>
+        <div class="form-control">
+            <label>Confirm Password</label>
+            <input type="Password" placeholder="Confirm Password" Id="Password2">
+            <small>Error Message</small>
+        </div>
+        <button>Submit</button>
+       </form> 
+    </div>
+    <script>
+        const form = document.getElementById("form");
+        const username = document.getElementById("Username");
+        const email = document.getElementById("email");
+        const password = document.getElementById("Password");
+        const Password2 = document.getElementById("Password2");
+
+        form.addEventListener('Submit',e =>{
+
+            e.preventDefault();
+            checkInput();
+        });
+
+        function checkInput(){
+           const usernameValue = username.value.trim();
+           const emailValue = email.value.trim();
+           const passwordValue = password.value.trim();
+           const password2Value = password2.value.trim();
+           
+           if(usernameValue === ''){
+               setError(username,"Username cannot Be Blank");
+           }
+           else{
+               setSuccess(username);
+           }
+           if(emailValue === ''){
+               setError(email,'Email cannot Be Blank');
+           }
+           else if(!isEmail(emailValue)){
+               setError(email,"Not a valid Email");
+           }
+           else{
+               setSuccess(email);
+           }
+           if(passwordValue === ''){
+               setError(password,'password cannot Be Blank');
+           }
+           else{
+               setSuccess(password);
+           }
+           if(password2Value === ''){
+               setError(password2,'password cannot Be Blank');
+           }
+           else if(passwordValue !== password2Value){
+               setError(password2,"Password Does Not Match");
+           }
+           else{
+               setSuccess(password2);
+           }
+        }
+        function setError(input, message){
+            const formControl = input.parentElement;
+            const small = formControl.querySelector('small');
+            formControl.className = 'form-control error';
+            small.innerText = message;
+        }
+        function setSuccess(input){
+           const formControl = input.parentElement;
+           formControl.className = 'form-control success'
+        }
+        
+        
+    </script>
+</body>
+</html>
